@@ -16,6 +16,13 @@ class MapView extends StatelessWidget {
     final cameraPosition = CameraPosition(target: initialLocation, zoom: 15);
     final mapBloc = BlocProvider.of<MapBloc>(context);
 
+    Map<String, Polyline> polylines = Map.from(mapBloc.state.polylines);
+    if (!mapBloc.state.mostrarMiRuta) {
+      polylines.removeWhere(
+        (key, value) => key == 'myRoute',
+      );
+    }
+
     //Creamos un sizebox para poder ocupar todo el ancho ya que estamos dentro de un Stack
     return SizedBox(
         //
@@ -31,6 +38,8 @@ class MapView extends StatelessWidget {
           onMapCreated: (controller) => mapBloc.add(OnMapInitializedEvent(controller)),
           //TODO: Markers
           //TODO: polylines
+          //Diferente a como se hace en el curso, se establece en un BlocBuilder en Screen
+          polylines: polylines.values.toSet(),
           //TODO: otros objetos
         ));
   }

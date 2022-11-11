@@ -13,3 +13,23 @@ class OnMapInitializedEvent extends MapEvent {
 
   const OnMapInitializedEvent(this.mapController);
 }
+
+class OnFollowinUserToggle extends MapEvent {
+  //
+  final bool seguirUsaurio;
+
+  const OnFollowinUserToggle(this.seguirUsaurio);
+}
+
+class OnUpdatePolylinesEvent extends MapEvent {
+  //
+  final List<LatLng> points;
+
+  const OnUpdatePolylinesEvent(this.points);
+}
+
+class OnShowMyRouteToggle extends MapEvent {
+  final bool showMyRoute;
+
+  const OnShowMyRouteToggle(this.showMyRoute);
+}

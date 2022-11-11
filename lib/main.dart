@@ -8,7 +8,7 @@ import 'package:maps_app/screens/aa_screens.dart';
 void main() {
   runApp(MultiBlocProvider(
     providers: [
-      //
+      // La carga de los blocs es secuecial
       BlocProvider(
         create: (context) => GpsBloc(),
       ),
@@ -16,7 +16,8 @@ void main() {
         create: (context) => LocationBloc(),
       ),
       BlocProvider(
-        create: (context) => MapBloc(),
+        create: (context) => //Aqui el context ya tiene la información del BlocLocation
+            MapBloc(locationBloc: BlocProvider.of<LocationBloc>(context)),
       ),
     ],
     child: MapsApp(),
