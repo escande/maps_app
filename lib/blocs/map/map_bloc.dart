@@ -6,6 +6,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_app/blocs/location/location_bloc.dart';
+import 'package:maps_app/blocs/search/search_bloc.dart';
+import 'package:maps_app/models/route_destination.dart';
 import 'package:maps_app/themes/aa_themes.dart';
 
 part 'map_event.dart';
@@ -14,6 +16,8 @@ part 'map_state.dart';
 class MapBloc extends Bloc<MapEvent, MapState> {
   //
   GoogleMapController? _mapController;
+
+  LatLng? mapCenter;
 
   final LocationBloc locationBloc;
 
@@ -41,6 +45,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     on<OnFollowinUserToggle>(
       (event, emit) => emit(state.copyWith(estaSiguiendoUsaurio: event.seguirUsaurio)),
+    );
+
+    on<OnDisplayPolylinesEvent>(
+      (event, emit) => emit(state.copyWith(polylines: event.polylines)),
     );
 
     on<OnUpdatePolylinesEvent>(_updatePolylines);
@@ -71,6 +79,23 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     currentPolylines['myRoute'] = myRoute;
 
     emit(state.copyWith(polylines: currentPolylines));
+  }
+
+  void drawRoutePolyline(RouteDestination destination) {
+    //
+    final myRoute = Polyline(
+        polylineId: const PolylineId('MyRoute'),
+        startCap: Cap.roundCap,
+        endCap: Cap.roundCap,
+        color: Colors.lightGreen,
+        width: 8,
+        points: destination.points);
+
+    //Hago una copia ya que no puedo alterar el estado, sino copiarlo
+    final currentPolylines = Map<String, Polyline>.from(state.polylines);
+    currentPolylines['myRoute'] = myRoute;
+
+    add(OnDisplayPolylinesEvent(polylines: currentPolylines));
   }
 
   void moveCamera(LatLng newLocation) {

@@ -39,9 +39,9 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       body: Center(
         child: BlocBuilder<LocationBloc, LocationState>(
-          builder: (context, state) {
+          builder: (context, locState) {
             //
-            if (state.lastKnownLocation == null) {
+            if (locState.lastKnownLocation == null) {
               return Center(
                 child: Text('Espere porfavor'),
               );
@@ -51,9 +51,14 @@ class _MapScreenState extends State<MapScreen> {
               child: Stack(
                 children: [
                   //
-                  MapView(
-                    initialLocation: state.lastKnownLocation!,
-                  )
+                  BlocBuilder<MapBloc, MapState>(
+                    builder: (context, mapSate) => MapView(
+                      initialLocation: locState.lastKnownLocation!,
+                      polylines: mapSate.polylines,
+                    ),
+                  ),
+                  SearchBar(),
+                  ManualMarket()
                 ],
               ),
             );

@@ -6,8 +6,10 @@ import 'package:maps_app/blocs/map/map_bloc.dart';
 class MapView extends StatelessWidget {
   //
   final LatLng initialLocation;
+  final Map<String, Polyline> polylines;
 
-  const MapView({Key? key, required this.initialLocation}) : super(key: key);
+  const MapView({Key? key, required this.initialLocation, required this.polylines})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class MapView extends StatelessWidget {
     final cameraPosition = CameraPosition(target: initialLocation, zoom: 15);
     final mapBloc = BlocProvider.of<MapBloc>(context);
 
-    Map<String, Polyline> polylines = Map.from(mapBloc.state.polylines);
+    //Map<String, Polyline> polylines = Map.from(mapBloc.state.polylines);
     if (!mapBloc.state.mostrarMiRuta) {
       polylines.removeWhere(
         (key, value) => key == 'myRoute',
@@ -40,6 +42,7 @@ class MapView extends StatelessWidget {
           //TODO: polylines
           //Diferente a como se hace en el curso, se establece en un BlocBuilder en Screen
           polylines: polylines.values.toSet(),
+          onCameraMove: (position) => mapBloc.mapCenter = position.target,
           //TODO: otros objetos
         ));
   }
