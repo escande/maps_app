@@ -3,6 +3,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:maps_app/blocs/location/location_bloc.dart';
+import 'package:maps_app/blocs/map/map_bloc.dart';
 import 'package:maps_app/blocs/search/search_bloc.dart';
 import 'package:maps_app/delegates/aa_delegates.dart';
 import 'package:maps_app/models/aa_models.dart';
@@ -26,12 +28,23 @@ class SearchBar extends StatelessWidget {
 class _SearchBarBody extends StatelessWidget {
   const _SearchBarBody({Key? key}) : super(key: key);
 
-  void onSearchResults(SearchResult result, BuildContext context) {
+  Future onSearchResults(SearchResult result, BuildContext context) async {
     //
     final searchBloc = BlocProvider.of<SearchBloc>(context);
+    final locBloc = BlocProvider.of<LocationBloc>(context);
+    final mapBloc = BlocProvider.of<MapBloc>(context);
+
     if (result.manual) {
       searchBloc.add(OnActivateManualMarker());
       return;
+    }
+
+    if (result.place != null) {
+      final currentLocation = locBloc.state.lastKnownLocation;
+      final routeDestination =
+          await searchBloc.getCoorsStartToEnd(currentLocation!, result.place!);
+
+      mapBloc.drawRoutePolyline(routeDestination);
     }
   }
 

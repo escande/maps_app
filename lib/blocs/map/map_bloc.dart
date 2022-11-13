@@ -6,7 +6,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_app/blocs/location/location_bloc.dart';
-import 'package:maps_app/blocs/search/search_bloc.dart';
 import 'package:maps_app/models/route_destination.dart';
 import 'package:maps_app/themes/aa_themes.dart';
 
