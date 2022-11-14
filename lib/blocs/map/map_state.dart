@@ -6,6 +6,7 @@ class MapState extends Equatable {
   final bool estaSiguiendoUsaurio;
   final bool mostrarMiRuta;
   final Map<String, Polyline> polylines;
+  final Map<String, Marker> markers;
   /*
     'MiRuta': {
       id: polyline.id,
@@ -18,23 +19,27 @@ class MapState extends Equatable {
       {this.esMapaIniciado = false,
       this.estaSiguiendoUsaurio = true,
       this.mostrarMiRuta = true,
-      Map<String, Polyline>? polylines})
-      : polylines = polylines ?? const {}; //Forma de inicializar un valor
+      Map<String, Polyline>? polylines,
+      Map<String, Marker>? markers})
+      : polylines = polylines ?? const {},
+        markers = markers ?? const {}; //Forma de inicializar un valor
 
   MapState copyWith(
           {bool? esMapaIniciado,
           bool? estaSiguiendoUsaurio,
           bool? mostrarMiRuta,
-          Map<String, Polyline>? polylines}) =>
+          Map<String, Polyline>? polylines,
+          Map<String, Marker>? markers}) =>
       MapState(
           esMapaIniciado: esMapaIniciado ?? this.esMapaIniciado,
           estaSiguiendoUsaurio: estaSiguiendoUsaurio ?? this.estaSiguiendoUsaurio,
           mostrarMiRuta: mostrarMiRuta ?? this.mostrarMiRuta,
-          polylines: polylines ?? this.polylines);
+          polylines: polylines ?? this.polylines,
+          markers: markers ?? this.markers);
 
   @override
   List<Object> get props =>
-      [esMapaIniciado, estaSiguiendoUsaurio, mostrarMiRuta, polylines];
+      [esMapaIniciado, estaSiguiendoUsaurio, mostrarMiRuta, polylines, markers];
 }
 
 //class MapInitial extends MapState {}

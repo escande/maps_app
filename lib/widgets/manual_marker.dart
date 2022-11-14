@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maps_app/blocs/blocs.dart';
 import 'package:maps_app/helpers/aa_helpers.dart';
 
-class ManualMarket extends StatelessWidget {
-  const ManualMarket({Key? key}) : super(key: key);
+class ManualMarker extends StatelessWidget {
+  const ManualMarker({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

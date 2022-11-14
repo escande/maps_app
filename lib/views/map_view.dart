@@ -7,8 +7,13 @@ class MapView extends StatelessWidget {
   //
   final LatLng initialLocation;
   final Map<String, Polyline> polylines;
+  final Map<String, Marker> markers;
 
-  const MapView({Key? key, required this.initialLocation, required this.polylines})
+  const MapView(
+      {Key? key,
+      required this.initialLocation,
+      required this.polylines,
+      required this.markers})
       : super(key: key);
 
   @override
@@ -39,8 +44,8 @@ class MapView extends StatelessWidget {
           zoomControlsEnabled: false,
           onMapCreated: (controller) => mapBloc.add(OnMapInitializedEvent(controller)),
           //TODO: Markers
+          markers: markers.values.toSet(),
           //TODO: polylines
-          //Diferente a como se hace en el curso, se establece en un BlocBuilder en Screen
           polylines: polylines.values.toSet(),
           onCameraMove: (position) => mapBloc.mapCenter = position.target,
           //TODO: otros objetos

@@ -55,10 +55,11 @@ class _MapScreenState extends State<MapScreen> {
                     builder: (context, mapSate) => MapView(
                       initialLocation: locState.lastKnownLocation!,
                       polylines: mapSate.polylines,
+                      markers: mapSate.markers,
                     ),
                   ),
                   SearchBar(),
-                  ManualMarket()
+                  ManualMarker()
                 ],
               ),
             );
