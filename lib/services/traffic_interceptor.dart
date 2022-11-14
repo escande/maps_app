@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 
-const accessToken =
-    'pk.eyJ1IjoianBhbGVybW82OSIsImEiOiJja3o4amp5MHgwdzN4MnVtdXBpOXY0cnVjIn0.o56TJI4DGM_pIHtNjd1qfg';
+const accessToken = 'Poner el API aqui';
 
 class TrafficInterceptor extends Interceptor {
   //
